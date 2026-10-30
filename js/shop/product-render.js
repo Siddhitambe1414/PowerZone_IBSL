@@ -16,7 +16,7 @@ function initShopControls() {
   let searchQuery = '';
 
   function renderShop() {
-    let filtered = [...POWERZONE_PRODUCTS];
+    let filtered = POWERZONE_PRODUCTS.filter(p => !p.id.startsWith('pz-bndl-'));
 
     if (currentCategory !== 'all') {
       filtered = filtered.filter(p => p.category === currentCategory);
@@ -24,8 +24,8 @@ function initShopControls() {
 
     if (searchQuery.trim() !== '') {
       const q = searchQuery.toLowerCase();
-      filtered = filtered.filter(p => 
-        p.name.toLowerCase().includes(q) || 
+      filtered = filtered.filter(p =>
+        p.name.toLowerCase().includes(q) ||
         p.desc.toLowerCase().includes(q) ||
         p.category.toLowerCase().includes(q)
       );
@@ -76,9 +76,11 @@ function initShopControls() {
                 ₹${prod.price.toLocaleString('en-IN')}
                 ${prod.oldPrice ? `<span class="old-price">₹${prod.oldPrice.toLocaleString('en-IN')}</span>` : ''}
               </div>
-              <span style="font-size: 0.75rem; color: ${isOutOfStock ? 'var(--primary)' : 'var(--accent-green)'}; font-weight: 700;">
-                ${isOutOfStock ? '● Restocking Soon' : '● COD Available'}
-              </span>
+              ${isOutOfStock ? `
+                <span style="font-size: 0.75rem; color: var(--primary); font-weight: 700;">
+                  ● Restocking Soon
+                </span>
+              ` : ''}
             </div>
             <div class="product-btn-group">
               ${isOutOfStock ? `
@@ -86,8 +88,8 @@ function initShopControls() {
                   Out of Stock
                 </button>
               ` : `
-                <button class="btn btn-primary btn-sm" onclick="window.pzCart.buyNow('${prod.id}')">
-                  Buy / Order (COD)
+                <button class="btn btn-primary btn-sm" onclick="window.placeDirectOrder('${prod.id}')">
+                  Place Order
                 </button>
                 <button class="btn btn-secondary btn-sm" onclick="window.pzCart.addItem('${prod.id}', 1)" title="Add to Cart">
                   Add to Cart
@@ -128,3 +130,86 @@ function initShopControls() {
     });
   }
 }
+window.placeDirectOrder = function (productId) {
+  if (window.pzCart && typeof window.pzCart.buyNow === 'function') {
+    window.pzCart.buyNow(productId);
+    return;
+  }
+  const orderId = 'PZ-ORD-' + Math.floor(10000 + Math.random() * 90000);
+  if (window.showToast) {
+    window.showToast('Order Placed!', `Order #${orderId} confirmed successfully.`, 'success');
+  } else {
+    alert(`Order Placed! Your Order ID is ${orderId}.`);
+  }
+};
+
+window.claimClubBundle = function (bundleId) {
+  if (window.pzCart && typeof window.pzCart.buyNow === 'function') {
+    window.pzCart.buyNow(bundleId);
+  } else {
+    window.placeDirectOrder(bundleId);
+  }
+};
+
+window.switchShopView = function (view) {
+  const gearSection = document.getElementById('sportsGearSection');
+  const offersSection = document.getElementById('clubOffersSection');
+  const tabGear = document.getElementById('viewTabGear');
+  const tabOffers = document.getElementById('viewTabOffers');
+  const navGear = document.getElementById('navSportsStore');
+  const navOffers = document.getElementById('navClubOffers');
+  const mobileNavGear = document.getElementById('mobileNavSportsStore');
+  const mobileNavOffers = document.getElementById('mobileNavClubOffers');
+
+  if (view === 'offers') {
+    if (gearSection) gearSection.style.display = 'none';
+    if (offersSection) offersSection.style.display = 'block';
+    if (tabGear) { tabGear.classList.remove('active', 'btn-primary'); tabGear.classList.add('btn-outline'); }
+    if (tabOffers) { tabOffers.classList.add('active', 'btn-primary'); tabOffers.classList.remove('btn-outline'); }
+    if (navGear) navGear.classList.remove('active');
+    if (navOffers) navOffers.classList.add('active');
+    if (mobileNavGear) mobileNavGear.classList.remove('active');
+    if (mobileNavOffers) mobileNavOffers.classList.add('active');
+  } else {
+    if (offersSection) offersSection.style.display = 'none';
+    if (gearSection) gearSection.style.display = 'block';
+    if (tabOffers) { tabOffers.classList.remove('active', 'btn-primary'); tabOffers.classList.add('btn-outline'); }
+    if (tabGear) { tabGear.classList.add('active', 'btn-primary'); tabGear.classList.remove('btn-outline'); }
+    if (navOffers) navOffers.classList.remove('active');
+    if (navGear) navGear.classList.add('active');
+    if (mobileNavOffers) mobileNavOffers.classList.remove('active');
+    if (mobileNavGear) mobileNavGear.classList.add('active');
+  }
+};
+
+// Check routing and URL params on initialization
+document.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const hash = window.location.hash;
+  if (params.get('view') === 'offers' || hash === '#club-offers' || hash === '#promos' || hash === '#offers') {
+    window.switchShopView('offers');
+  } else {
+    window.switchShopView('gear');
+  }
+
+  // Handle in-page nav link clicks
+  const setupNavClick = (el, view) => {
+    if (el) {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.switchShopView(view);
+        const newUrl = view === 'offers' ? 'shop.html?view=offers' : 'shop.html';
+        window.history.pushState(null, '', newUrl);
+        const target = view === 'offers' ? document.getElementById('clubOffersSection') : document.getElementById('sportsGearSection');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    }
+  };
+
+  setupNavClick(document.getElementById('navSportsStore'), 'gear');
+  setupNavClick(document.getElementById('mobileNavSportsStore'), 'gear');
+  setupNavClick(document.getElementById('navClubOffers'), 'offers');
+  setupNavClick(document.getElementById('mobileNavClubOffers'), 'offers');
+});

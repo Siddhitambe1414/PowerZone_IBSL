@@ -42,8 +42,8 @@
       <nav class="desktop-nav" aria-label="Main Navigation">
         <a href="index.html" class="nav-link">Home</a>
         <a href="classes.html" class="nav-link">Training & Classes</a>
-        <a href="shop.html" class="nav-link active">Sports Gear Store</a>
-        <a href="#promos" class="nav-link">Club Offers</a>
+        <a href="shop.html" class="nav-link active" id="navSportsStore">Sports Gear Store</a>
+        <a href="shop.html?view=offers" class="nav-link" id="navClubOffers">Club Offers</a>
       </nav>
 
       <!-- Header Actions -->
@@ -88,80 +88,338 @@
     <div class="mobile-nav-links">
       <a href="index.html" class="nav-link">Home</a>
       <a href="classes.html" class="nav-link">Training & Classes</a>
-      <a href="shop.html" class="nav-link active">Sports Gear Store</a>
-      <a href="#promos" class="nav-link">Club Offers</a>
+      <a href="shop.html" class="nav-link active" id="mobileNavSportsStore">Sports Gear Store</a>
+      <a href="shop.html?view=offers" class="nav-link" id="mobileNavClubOffers">Club Offers</a>
     </div>
     <div>
       <button class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;" onclick="window.pzCart.openDrawer()">
         View Cart
       </button>
       <p style="font-size: 0.8rem; color: var(--text-muted); text-align: center;">
-        Cash on Delivery across Shirdi & Ahmednagar
+        Express delivery across Shirdi & Ahmednagar
       </p>
     </div>
   </div>
 
-  <!-- ==================== SHOP HERO ==================== -->
-  <section class="shop-hero">
-    <div class="container">
-      <div class="section-tag">
-        <span class="dot"></span> OFFICIAL SHIRDI SPORTS STORE
-      </div>
-      <h1>AUTHENTIC SPORTS <span class="text-gradient">EQUIPMENT & GEAR</span></h1>
-      <p class="section-subtitle" style="max-width: 680px; margin: 1rem auto 0 auto;">
-        From Kashmir Willow cricket bats and turf shoes to powerlifting lever belts and custom tournament trophies with local Cash on Delivery (COD).
-      </p>
-    </div>
-  </section>
-
-  <!-- ==================== PROMO TICKER BANNER ==================== -->
-  <div class="container" id="promos" style="margin-bottom: 2rem;">
-    <div style="background: linear-gradient(90deg, var(--primary-subtle), var(--secondary-subtle)); border: 1px dashed var(--primary-border); border-radius: var(--radius-md); padding: 0.85rem 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-      <div style="display: flex; align-items: center; gap: 0.75rem;">
-        <span class="badge badge-crimson">SHIRDI CLUB OFFER</span>
-        <span style="font-size: 0.9rem; color: var(--text-primary);">Use coupon code <strong style="color: var(--primary);">POWERZONE20</strong> at checkout for <strong>20% OFF</strong> all sports gear!</span>
-      </div>
-      <span style="font-size: 0.82rem; color: var(--text-muted); font-weight: 600;">⚡ Free Same-Day Pickup at Shirdi Store</span>
+  <!-- ==================== VIEW SELECTOR PILL TABS (Requirement 8) ==================== -->
+  <div class="container" style="padding-top: 1.5rem; text-align: center;">
+    <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); padding: 0.35rem; border-radius: var(--radius-full); display: inline-flex; gap: 0.5rem; max-width: 100%; box-shadow: var(--shadow-sm); flex-wrap: wrap; justify-content: center;">
+      <button id="viewTabGear" class="btn btn-primary btn-sm" onclick="window.switchShopView('gear')" style="border-radius: var(--radius-full); font-weight: 700; padding: 0.55rem 1.35rem;">
+        🛍️ Sports Gear Catalog
+      </button>
+      <button id="viewTabOffers" class="btn btn-outline btn-sm" onclick="window.switchShopView('offers')" style="border-radius: var(--radius-full); font-weight: 700; padding: 0.55rem 1.35rem;">
+        🔥 Exclusive Club Offers & Bundles
+      </button>
     </div>
   </div>
 
-  <!-- ==================== SHOP TOOLBAR & CATALOG ==================== -->
-  <section class="section" style="padding-top: 0;">
-    <div class="container">
-      
-      <!-- Toolbar Filter & Search -->
-      <div class="shop-toolbar">
-        <div class="shop-categories">
-          <button class="shop-cat-btn active" data-cat="all">All Sports</button>
-          <button class="shop-cat-btn" data-cat="cricket">Cricket</button>
-          <button class="shop-cat-btn" data-cat="badminton">Badminton</button>
-          <button class="shop-cat-btn" data-cat="football">Football & Turf</button>
-          <button class="shop-cat-btn" data-cat="gym">Gym Iron & Belts</button>
-          <button class="shop-cat-btn" data-cat="trophies">Trophies</button>
-          <button class="shop-cat-btn" data-cat="accessories">Accessories</button>
+  <!-- ==================== VIEW 1: SPORTS GEAR STORE ==================== -->
+  <div id="sportsGearSection">
+    <!-- SHOP HERO -->
+    <section class="shop-hero" style="padding-top: 2rem;">
+      <div class="container">
+        <div class="section-tag">
+          <span class="dot"></span> OFFICIAL SHIRDI SPORTS STORE
         </div>
+        <h1>AUTHENTIC SPORTS <span class="text-gradient">EQUIPMENT & GEAR</span></h1>
+        <p class="section-subtitle" style="max-width: 680px; margin: 1rem auto 0 auto;">
+          From Kashmir Willow cricket bats and turf shoes to powerlifting lever belts and custom tournament trophies.
+        </p>
+      </div>
+    </section>
 
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; flex-grow: 1; justify-content: flex-end;">
-          <input type="text" id="shopSearchInput" class="form-control" placeholder="🔍 Search bats, shoes, belts..." style="max-width: 260px; padding: 0.45rem 0.85rem; font-size: 0.85rem;">
-          
-          <div class="shop-sort-wrap">
-            <span style="font-size: 0.82rem; color: var(--text-muted);">Sort:</span>
-            <select id="shopSortSelect" class="shop-sort-select">
-              <option value="featured">Featured Picks</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-              <option value="rating">Highest Rated</option>
-            </select>
+    <!-- PROMO TICKER BANNER -->
+    <div class="container" id="promos" style="margin-bottom: 2rem;">
+      <div style="background: linear-gradient(90deg, var(--primary-subtle), var(--secondary-subtle)); border: 1px dashed var(--primary-border); border-radius: var(--radius-md); padding: 0.85rem 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <span class="badge badge-crimson">SHIRDI CLUB OFFER</span>
+          <span style="font-size: 0.9rem; color: var(--text-primary);">Use coupon code <strong style="color: var(--primary);">POWERZONE20</strong> at checkout for <strong>20% OFF</strong> all sports gear!</span>
+        </div>
+        <span style="font-size: 0.82rem; color: var(--text-muted); font-weight: 600;">⚡ Free Same-Day Pickup at Shirdi Store</span>
+      </div>
+    </div>
+
+    <!-- SHOP TOOLBAR & CATALOG -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        
+        <!-- Toolbar Filter & Search -->
+        <div class="shop-toolbar">
+          <div class="shop-categories">
+            <button class="shop-cat-btn active" data-cat="all">All Sports</button>
+            <button class="shop-cat-btn" data-cat="cricket">Cricket</button>
+            <button class="shop-cat-btn" data-cat="badminton">Badminton</button>
+            <button class="shop-cat-btn" data-cat="football">Football & Turf</button>
+            <button class="shop-cat-btn" data-cat="gym">Gym Iron & Belts</button>
+            <button class="shop-cat-btn" data-cat="trophies">Trophies</button>
+            <button class="shop-cat-btn" data-cat="accessories">Accessories</button>
+          </div>
+
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; flex-grow: 1; justify-content: flex-end;">
+            <input type="text" id="shopSearchInput" class="form-control" placeholder="🔍 Search bats, shoes, belts..." style="max-width: 260px; padding: 0.45rem 0.85rem; font-size: 0.85rem;">
+            
+            <div class="shop-sort-wrap">
+              <span style="font-size: 0.82rem; color: var(--text-muted);">Sort:</span>
+              <select id="shopSortSelect" class="shop-sort-select">
+                <option value="featured">Featured Picks</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="rating">Highest Rated</option>
+              </select>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Sports Product Grid Container (Populated by js/main.js & js/cart.js) -->
-      <div class="shop-grid" id="shopGridContainer">
-        <!-- Rendered by main.js -->
+        <!-- Sports Product Grid Container (Populated by js/shop/product-render.js) -->
+        <div class="shop-grid" id="shopGridContainer">
+          <!-- Rendered by js/shop/product-render.js -->
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== VIEW 2: EXCLUSIVE CLUB OFFERS & MEMBER BUNDLES (Requirement 8) ==================== -->
+  <div id="clubOffersSection" style="display: none;">
+    <!-- CLUB OFFERS HERO -->
+    <section class="shop-hero" style="padding-top: 2rem; padding-bottom: 2rem;">
+      <div class="container">
+        <div class="section-tag">
+          <span class="dot"></span> EXCLUSIVE MEMBER PACKAGES
+        </div>
+        <h1>POWERZONE <span class="text-gradient">CLUB OFFERS & BUNDLES</span></h1>
+        <p class="section-subtitle" style="max-width: 720px; margin: 1rem auto 0 auto;">
+          Subsidized membership and equipment combos tailored for local Shirdi gym athletes, college students, and competitive tournament players.
+        </p>
+      </div>
+    </section>
+
+    <!-- PRIVILEGE BANNER -->
+    <div class="container" style="margin-bottom: 2rem;">
+      <div style="background: linear-gradient(90deg, rgba(255, 149, 0, 0.12), rgba(255, 59, 48, 0.12)); border: 1px dashed rgba(255, 149, 0, 0.4); border-radius: var(--radius-md); padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <span class="badge badge-gold">SHIRDI ATHLETE PRIVILEGE</span>
+          <span style="font-size: 0.92rem; color: var(--text-primary); font-weight: 600;">
+            All bundles include guaranteed member locker reservation and free biomechanical movement screening.
+          </span>
+        </div>
+        <span style="font-size: 0.85rem; color: var(--accent-green); font-weight: 700;">✓ Subsidized Member Pricing</span>
       </div>
     </div>
-  </section>
+
+    <!-- MEMBER BUNDLES GRID -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="shop-grid">
+          
+          <!-- Bundle 1: 6-Month Elite Pass + Belt + Shaker -->
+          <div class="product-card">
+            <div class="product-thumb-holder">
+              <span class="badge badge-gold product-badge-tag">🏆 BEST VALUE COMBO</span>
+              <img src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=600&auto=format&fit=crop&q=80" alt="Gym Membership + Gear Combo" loading="lazy">
+              <button class="btn btn-secondary btn-sm quick-view-btn" onclick="window.pzModalMgr.openQuickView('pz-bndl-1')">
+                Quick Details
+              </button>
+            </div>
+            <div class="product-info">
+              <span class="product-category-label">Gym Membership + Gear Combo</span>
+              <h3 class="product-title">6-Month Elite Gym Pass + 10mm Lever Belt + Shaker</h3>
+              <div class="product-rating">
+                <span>★</span> 5.0 <span>(64 verified athletes)</span>
+              </div>
+              <ul style="list-style: none; padding: 0; margin: 0.75rem 0; font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
+                <li>✓ 6 Months Unlimited Powerlifting & Gym Floor Access</li>
+                <li>✓ IPF-Spec 10mm Leather Powerlifting Lever Belt (Custom Fit)</li>
+                <li>✓ PowerZone 700ml Stainless Shaker Bottle</li>
+                <li>✓ 1 Free Form & PR Check with Coach Rohit Shinde</li>
+              </ul>
+              <div class="product-footer">
+                <div class="product-price-row">
+                  <div class="product-price">
+                    ₹8,499
+                    <span class="old-price">₹11,200</span>
+                  </div>
+                  <span class="badge badge-green" style="font-size: 0.75rem;">Save 25%</span>
+                </div>
+                <div class="product-btn-group">
+                  <button class="btn btn-primary btn-sm" onclick="window.claimClubBundle('pz-bndl-1')">
+                    Claim Member Bundle
+                  </button>
+                  <button class="btn btn-secondary btn-sm" onclick="window.pzCart.addItem('pz-bndl-1', 1)" title="Add to Cart">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bundle 2: Shirdi Local Student Discount -->
+          <div class="product-card">
+            <div class="product-thumb-holder">
+              <span class="badge badge-cyan product-badge-tag">🎓 STUDENT SPECIAL</span>
+              <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&auto=format&fit=crop&q=80" alt="Shirdi Student Discount" loading="lazy">
+              <button class="btn btn-secondary btn-sm quick-view-btn" onclick="window.pzModalMgr.openQuickView('pz-bndl-2')">
+                Quick Details
+              </button>
+            </div>
+            <div class="product-info">
+              <span class="product-category-label">Shirdi Local Student Discount</span>
+              <h3 class="product-title">Student Semester Gym & Turf Conditioning Pass</h3>
+              <div class="product-rating">
+                <span>★</span> 4.9 <span>(82 Shirdi students)</span>
+              </div>
+              <ul style="list-style: none; padding: 0; margin: 0.75rem 0; font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
+                <li>✓ Valid college/school ID required at reception desk</li>
+                <li>✓ Full access to weight gym floor & turf agility track</li>
+                <li>✓ Free daily locker usage & water hydration station</li>
+                <li>✓ Quarterly athletic progress testing & body scan</li>
+              </ul>
+              <div class="product-footer">
+                <div class="product-price-row">
+                  <div class="product-price">
+                    ₹3,299
+                    <span class="old-price">₹4,500</span>
+                  </div>
+                  <span class="badge badge-green" style="font-size: 0.75rem;">₹1,199/mo rate</span>
+                </div>
+                <div class="product-btn-group">
+                  <button class="btn btn-primary btn-sm" onclick="window.claimClubBundle('pz-bndl-2')">
+                    Claim Student Pass
+                  </button>
+                  <button class="btn btn-secondary btn-sm" onclick="window.pzCart.addItem('pz-bndl-2', 1)" title="Add to Cart">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bundle 3: PowerZone Black Card Annual Tier Perks -->
+          <div class="product-card">
+            <div class="product-thumb-holder">
+              <span class="badge badge-crimson product-badge-tag">👑 VIP BLACK CARD</span>
+              <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&auto=format&fit=crop&q=80" alt="Annual Tier Perks" loading="lazy">
+              <button class="btn btn-secondary btn-sm quick-view-btn" onclick="window.pzModalMgr.openQuickView('pz-bndl-3')">
+                Quick Details
+              </button>
+            </div>
+            <div class="product-info">
+              <span class="product-category-label">Annual Tier Perks</span>
+              <h3 class="product-title">Black Card Annual Membership & Complete Athlete Kit</h3>
+              <div class="product-rating">
+                <span>★</span> 5.0 <span>(43 VIP members)</span>
+              </div>
+              <ul style="list-style: none; padding: 0; margin: 0.75rem 0; font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
+                <li>✓ 365 Days Unlimited Access to Gym, Turf & Recovery</li>
+                <li>✓ Unlimited Infrared Eucalyptus Steam Suite access</li>
+                <li>✓ 2 Free VIP Guest Passes per month for guests</li>
+                <li>✓ Official PowerZone Performance Tee + Shaker + PT Starter</li>
+              </ul>
+              <div class="product-footer">
+                <div class="product-price-row">
+                  <div class="product-price">
+                    ₹14,999
+                    <span class="old-price">₹22,000</span>
+                  </div>
+                  <span class="badge badge-gold" style="font-size: 0.75rem;">Save ₹7,001</span>
+                </div>
+                <div class="product-btn-group">
+                  <button class="btn btn-primary btn-sm" onclick="window.claimClubBundle('pz-bndl-3')">
+                    Unlock Black Card
+                  </button>
+                  <button class="btn btn-secondary btn-sm" onclick="window.pzCart.addItem('pz-bndl-3', 1)" title="Add to Cart">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bundle 4: Cricket & Turf Pre-Season Bundle -->
+          <div class="product-card">
+            <div class="product-thumb-holder">
+              <span class="badge badge-crimson product-badge-tag">🏏 CRICKET COMBO</span>
+              <img src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=600&auto=format&fit=crop&q=80" alt="Cricket Athlete Pre-Season Bundle" loading="lazy">
+              <button class="btn btn-secondary btn-sm quick-view-btn" onclick="window.pzModalMgr.openQuickView('pz-bndl-4')">
+                Quick Details
+              </button>
+            </div>
+            <div class="product-info">
+              <span class="product-category-label">Turf & Cricket Agility Combo</span>
+              <h3 class="product-title">Pre-Season Turf Agility + Kashmir Bat & Match Balls</h3>
+              <div class="product-rating">
+                <span>★</span> 4.9 <span>(38 cricket athletes)</span>
+              </div>
+              <ul style="list-style: none; padding: 0; margin: 0.75rem 0; font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
+                <li>✓ 3-Month Velocity 30 Turf Speed & Conditioning Camp</li>
+                <li>✓ Grade 1 Full Size Kashmir Willow Cricket Bat</li>
+                <li>✓ Pack of 2 Four-Piece Leather Match Cricket Balls</li>
+                <li>✓ Bowling shoulder & rotational power prehab protocols</li>
+              </ul>
+              <div class="product-footer">
+                <div class="product-price-row">
+                  <div class="product-price">
+                    ₹5,499
+                    <span class="old-price">₹7,800</span>
+                  </div>
+                  <span class="badge badge-green" style="font-size: 0.75rem;">Save 30%</span>
+                </div>
+                <div class="product-btn-group">
+                  <button class="btn btn-primary btn-sm" onclick="window.claimClubBundle('pz-bndl-4')">
+                    Claim Cricket Bundle
+                  </button>
+                  <button class="btn btn-secondary btn-sm" onclick="window.pzCart.addItem('pz-bndl-4', 1)" title="Add to Cart">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bundle 5: Desk Worker Post-Work Mobility & Steam Pass -->
+          <div class="product-card">
+            <div class="product-thumb-holder">
+              <span class="badge badge-green product-badge-tag">🌿 WELLNESS PASS</span>
+              <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&auto=format&fit=crop&q=80" alt="Mobility and Steam Pass" loading="lazy">
+              <button class="btn btn-secondary btn-sm quick-view-btn" onclick="window.pzModalMgr.openQuickView('pz-bndl-5')">
+                Quick Details
+              </button>
+            </div>
+            <div class="product-info">
+              <span class="product-category-label">Local Wellness & Recovery Perk</span>
+              <h3 class="product-title">3-Month Post-Work Mobility & Infrared Steam Pass</h3>
+              <div class="product-rating">
+                <span>★</span> 4.9 <span>(51 local members)</span>
+              </div>
+              <ul style="list-style: none; padding: 0; margin: 0.75rem 0; font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
+                <li>✓ 3 Months unlimited access to Reset & Rebuild mobility classes</li>
+                <li>✓ Access to specialized thermal eucalyptus infrared steam suite</li>
+                <li>✓ Foam rolling station & spine decompression posture clinic</li>
+                <li>✓ Designed for Shirdi shopkeepers, teachers & desk professionals</li>
+              </ul>
+              <div class="product-footer">
+                <div class="product-price-row">
+                  <div class="product-price">
+                    ₹3,999
+                    <span class="old-price">₹5,500</span>
+                  </div>
+                  <span class="badge badge-green" style="font-size: 0.75rem;">Save ₹1,501</span>
+                </div>
+                <div class="product-btn-group">
+                  <button class="btn btn-primary btn-sm" onclick="window.claimClubBundle('pz-bndl-5')">
+                    Claim Wellness Pass
+                  </button>
+                  <button class="btn btn-secondary btn-sm" onclick="window.pzCart.addItem('pz-bndl-5', 1)" title="Add to Cart">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </div>
 
   <!-- ==================== SITE FOOTER ==================== -->
   <footer class="site-footer">
@@ -260,12 +518,12 @@
       <div class="cart-breakdown" id="cartBreakdown"></div>
 
       <button class="btn btn-primary" id="checkoutDrawerBtn" style="width: 100%;">
-        Proceed to Checkout (COD Available)
+        Proceed to Checkout
       </button>
     </div>
   </div>
 
-  <!-- PROFESSIONAL CHECKOUT & COD MODAL -->
+  <!-- PROFESSIONAL CHECKOUT MODAL -->
   <div class="modal-backdrop" id="checkoutModal">
     <div class="modal-box">
       <button class="modal-close-icon" aria-label="Close modal">✕</button>
@@ -286,7 +544,7 @@
           <div class="form-row">
             <div class="form-group">
               <label class="form-label" for="checkoutPhone">WhatsApp Mobile Number (10 Digits) *</label>
-              <input type="tel" id="checkoutPhone" class="form-control" placeholder="e.g. 9876543210" required pattern="[6-9][0-9]{9}" maxlength="10" title="Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9.">
+              <input type="tel" id="checkoutPhone" class="form-control" placeholder="10-digit mobile number" required pattern="[6-9][0-9]{9}" maxlength="10" title="Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9.">
             </div>
             <div class="form-group">
               <label class="form-label" for="checkoutCity">Town / City *</label>
@@ -305,28 +563,8 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label">Payment Mode</label>
-            <div class="payment-radio-group">
-              <label class="payment-radio-option selected">
-                <input type="radio" name="paymentMethod" value="cod" checked>
-                <div>
-                  <strong style="color: var(--text-primary);">💵 Cash on Delivery (COD) / Pay at Shirdi Store</strong>
-                  <div style="font-size: 0.75rem; color: var(--text-muted);">Pay cash or scan QR when your gear arrives at your doorstep</div>
-                </div>
-              </label>
-              <label class="payment-radio-option">
-                <input type="radio" name="paymentMethod" value="upi">
-                <div>
-                  <strong style="color: var(--text-primary);">⚡ Instant UPI (GPay / PhonePe / Paytm)</strong>
-                  <div style="font-size: 0.75rem; color: var(--text-muted);">Instant zero-fee transfer to PowerZone Official Merchant</div>
-                </div>
-              </label>
-            </div>
-          </div>
-
-          <button type="submit" class="btn btn-primary btn-glow" style="width: 100%;">
-            Place Order & Confirm Delivery
+          <button type="submit" class="btn btn-primary btn-glow" style="width: 100%; margin-top: 0.5rem;">
+            Place Order
           </button>
         </form>
       </div>
@@ -365,7 +603,7 @@
         <form id="authLoginForm">
           <div class="form-group">
             <label class="form-label" for="loginIdentifier">Email Address or 10-Digit Mobile *</label>
-            <input type="text" id="loginIdentifier" class="form-control" placeholder="e.g. rahul@example.com or 9876543210" required autocomplete="username">
+            <input type="text" id="loginIdentifier" class="form-control" placeholder="e.g. rahul@example.com or mobile number" required autocomplete="username">
           </div>
 
           <div class="form-group">
@@ -396,7 +634,7 @@
 
           <div class="form-group">
             <label class="form-label" for="regMobile">10-Digit Indian Mobile Number *</label>
-            <input type="tel" id="regMobile" class="form-control" placeholder="e.g. 9860123456" required pattern="[6-9][0-9]{9}" maxlength="10" title="Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9." autocomplete="tel">
+            <input type="tel" id="regMobile" class="form-control" placeholder="10-digit mobile number" required pattern="[6-9][0-9]{9}" maxlength="10" title="Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9." autocomplete="tel">
             <div id="regMobileHelper" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Must be 10 digits starting with 6, 7, 8, or 9</div>
           </div>
 
@@ -431,6 +669,12 @@
               <input type="password" id="regPassword" class="form-control" placeholder="Create a secure password" required minlength="6" autocomplete="new-password">
               <button type="button" class="password-reveal-btn" onclick="window.togglePasswordVisibility('regPassword', this)" aria-label="Toggle password visibility">👁️‍🗨️</button>
             </div>
+          </div>
+
+          <div class="form-group" id="regOtpWrap" style="display: none;">
+            <label class="form-label" for="regOtpInput">Email Verification Code *</label>
+            <input type="text" id="regOtpInput" name="otp" class="form-control" placeholder="Enter verification code" maxlength="8" autocomplete="one-time-code" style="letter-spacing: 0.25rem; font-size: 1.15rem; font-weight: 700; text-align: center;">
+            <div id="regOtpHelper" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Enter the 6 to 8-digit verification code sent to your email.</div>
           </div>
 
           <button type="submit" class="btn btn-primary btn-glow" style="width: 100%; margin-top: 0.5rem;" id="regSubmitBtn">

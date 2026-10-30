@@ -46,6 +46,7 @@
         <a href="index.html" class="nav-link">Home</a>
         <a href="classes.html" class="nav-link active">Training & Classes</a>
         <a href="shop.html" class="nav-link">Sports Gear Store</a>
+        <a href="shop.html?view=offers" class="nav-link">Club Offers</a>
         <a href="#schedule-matrix" class="nav-link">Timetable</a>
         <a href="#faq" class="nav-link">Beginner FAQs</a>
       </nav>
@@ -97,6 +98,7 @@
       <a href="index.html" class="nav-link">Home</a>
       <a href="classes.html" class="nav-link active">Training & Classes</a>
       <a href="shop.html" class="nav-link">Sports Gear Store</a>
+      <a href="shop.html?view=offers" class="nav-link">Club Offers</a>
       <a href="#schedule-matrix" class="nav-link">Timetable</a>
       <a href="#faq" class="nav-link">Beginner FAQs</a>
     </div>
@@ -137,6 +139,7 @@
     <div class="container">
       <div class="classes-grid">
         
+        <!-- ==================== DISCIPLINE 1: HIIT & METABOLIC ==================== -->
         <!-- Class 1: Burn & Build -->
         <div class="class-card class-card-item" data-category="hiit">
           <div class="class-image-holder">
@@ -151,7 +154,7 @@
               <span>Lead Coach: Vikram Patil (CSCS)</span>
             </div>
             <p class="class-desc">
-              High-intensity metabolic conditioning combining SkiErgs, assault runners, and kettlebells to maximize cardiovascular stamina and fat burning.
+              High-intensity 50-minute metabolic conditioning combining SkiErgs, assault runners, and kettlebells to maximize cardiovascular stamina and fat burning.
             </p>
             
             <div class="class-specs">
@@ -169,13 +172,62 @@
               </div>
             </div>
 
-            <button class="btn btn-primary" data-book-class="Burn & Build" style="width: 100%;">
-              Book Trial Slot (Free)
-            </button>
+            <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 0.5rem; margin-top: auto; padding-top: 1rem;">
+              <button class="btn btn-secondary btn-sm" onclick="window.openClassDetail('burn-build')">
+                Explore More
+              </button>
+              <button class="btn btn-primary btn-sm" data-book-class="Burn & Build">
+                Book Trial Slot
+              </button>
+            </div>
           </div>
         </div>
 
-        <!-- Class 2: Iron & Alloy -->
+        <!-- Class 2: Morning Metabolic Rush -->
+        <div class="class-card class-card-item" data-category="hiit">
+          <div class="class-image-holder">
+            <div class="class-intensity">⚡ EXPRESS 35M</div>
+            <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&auto=format&fit=crop&q=80" alt="Morning Metabolic Rush">
+          </div>
+          <div class="class-body">
+            <span class="badge badge-gold class-seat-tag">⚡ 6:00 AM & 7:30 AM Slots</span>
+            <h3 class="class-title">Morning Metabolic Rush</h3>
+            <div class="class-coach">
+              <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=60&auto=format&fit=crop&q=80" alt="Coach Vikram">
+              <span>Lead Coach: Vikram Patil (CSCS)</span>
+            </div>
+            <p class="class-desc">
+              Fast-paced 35-minute express conditioning circuit utilizing Tabata protocols, battle ropes, and turf sleds for high caloric expenditure before your workday.
+            </p>
+            
+            <div class="class-specs">
+              <div>
+                <div class="spec-val text-crimson">35 Min</div>
+                <div class="spec-key">Duration</div>
+              </div>
+              <div>
+                <div class="spec-val text-gold">550 kcal</div>
+                <div class="spec-key">Est. Burn</div>
+              </div>
+              <div>
+                <div class="spec-val">14 Max</div>
+                <div class="spec-key">Capacity</div>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 0.5rem; margin-top: auto; padding-top: 1rem;">
+              <button class="btn btn-secondary btn-sm" onclick="window.openClassDetail('metabolic-rush')">
+                Explore More
+              </button>
+              <button class="btn btn-primary btn-sm" data-book-class="Morning Metabolic Rush">
+                Book Trial Slot
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== DISCIPLINE 2: BARBELL POWERLIFTING ==================== -->
+        <!-- Class 3: Iron & Alloy -->
         <div class="class-card class-card-item" data-category="strength">
           <div class="class-image-holder">
             <div class="class-intensity">🏋️ HEAVY POWER</div>
@@ -207,13 +259,62 @@
               </div>
             </div>
 
-            <button class="btn btn-primary" data-book-class="Iron & Alloy" style="width: 100%;">
-              Book Trial Slot (Free)
-            </button>
+            <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 0.5rem; margin-top: auto; padding-top: 1rem;">
+              <button class="btn btn-secondary btn-sm" onclick="window.openClassDetail('iron-alloy')">
+                Explore More
+              </button>
+              <button class="btn btn-primary btn-sm" data-book-class="Iron & Alloy">
+                Book Trial Slot
+              </button>
+            </div>
           </div>
         </div>
 
-        <!-- Class 3: Reset & Rebuild -->
+        <!-- Class 4: 5x5 Strength Foundation -->
+        <div class="class-card class-card-item" data-category="strength">
+          <div class="class-image-holder">
+            <div class="class-intensity">💪 5x5 FOUNDATION</div>
+            <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&auto=format&fit=crop&q=80" alt="5x5 Strength Foundation">
+          </div>
+          <div class="class-body">
+            <span class="badge badge-cyan class-seat-tag">🟢 Beginner Welcome • 09:00 AM Slot</span>
+            <h3 class="class-title">5x5 Strength Foundation</h3>
+            <div class="class-coach">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80" alt="Coach Rohit">
+              <span>Lead Coach: Rohit Shinde (State Powerlifter)</span>
+            </div>
+            <p class="class-desc">
+              Beginner-friendly barbell coaching. Master core multi-joint lifts (squat, press, row) with guided progressive overload, correct posture, and zero injury risk.
+            </p>
+            
+            <div class="class-specs">
+              <div>
+                <div class="spec-val text-crimson">45 Min</div>
+                <div class="spec-key">Duration</div>
+              </div>
+              <div>
+                <div class="spec-val text-gold">480 kcal</div>
+                <div class="spec-key">Est. Burn</div>
+              </div>
+              <div>
+                <div class="spec-val">10 Max</div>
+                <div class="spec-key">Capacity</div>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 0.5rem; margin-top: auto; padding-top: 1rem;">
+              <button class="btn btn-secondary btn-sm" onclick="window.openClassDetail('strength-5x5')">
+                Explore More
+              </button>
+              <button class="btn btn-primary btn-sm" data-book-class="5x5 Strength Foundation">
+                Book Trial Slot
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== DISCIPLINE 3: MOBILITY & STEAM ==================== -->
+        <!-- Class 5: Reset & Rebuild -->
         <div class="class-card class-card-item" data-category="recovery">
           <div class="class-image-holder">
             <div class="class-intensity">🧘 RESTORATIVE</div>
@@ -223,7 +324,7 @@
             <span class="badge badge-cyan class-seat-tag">🧘 Steam Pass Included</span>
             <h3 class="class-title">Reset & Rebuild</h3>
             <div class="class-coach">
-              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&auto=format&fit=crop&q=80" alt="Dr. Sean Miller">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&auto=format&fit=crop&q=80" alt="Dr. Alok Kulkarni">
               <span>Lead Coach: Dr. Alok Kulkarni (MPT, Sports Rehab)</span>
             </div>
             <p class="class-desc">
@@ -245,13 +346,62 @@
               </div>
             </div>
 
-            <button class="btn btn-primary" data-book-class="Reset & Rebuild" style="width: 100%;">
-              Book Trial Slot (Free)
-            </button>
+            <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 0.5rem; margin-top: auto; padding-top: 1rem;">
+              <button class="btn btn-secondary btn-sm" onclick="window.openClassDetail('reset-rebuild')">
+                Explore More
+              </button>
+              <button class="btn btn-primary btn-sm" data-book-class="Reset & Rebuild">
+                Book Trial Slot
+              </button>
+            </div>
           </div>
         </div>
 
-        <!-- Class 4: Velocity 30 -->
+        <!-- Class 6: Post-Work Back & Joint Relief -->
+        <div class="class-card class-card-item" data-category="recovery">
+          <div class="class-image-holder">
+            <div class="class-intensity">🌿 DESK RECOVERY</div>
+            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&auto=format&fit=crop&q=80" alt="Post-Work Back & Joint Relief">
+          </div>
+          <div class="class-body">
+            <span class="badge badge-green class-seat-tag">🌿 Night 08:00 PM Restorative</span>
+            <h3 class="class-title">Post-Work Back & Joint Relief</h3>
+            <div class="class-coach">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&auto=format&fit=crop&q=80" alt="Dr. Alok Kulkarni">
+              <span>Lead Coach: Dr. Alok Kulkarni (MPT, Sports Rehab)</span>
+            </div>
+            <p class="class-desc">
+              Targeted 40-minute decompression for lower back, tight hip flexors, and cervical neck stiffness caused by desk jobs, shop keeping, and daily travel in Shirdi.
+            </p>
+            
+            <div class="class-specs">
+              <div>
+                <div class="spec-val text-crimson">40 Min</div>
+                <div class="spec-key">Duration</div>
+              </div>
+              <div>
+                <div class="spec-val text-gold">250 kcal</div>
+                <div class="spec-key">Est. Burn</div>
+              </div>
+              <div>
+                <div class="spec-val">12 Max</div>
+                <div class="spec-key">Capacity</div>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 0.5rem; margin-top: auto; padding-top: 1rem;">
+              <button class="btn btn-secondary btn-sm" onclick="window.openClassDetail('desk-recovery')">
+                Explore More
+              </button>
+              <button class="btn btn-primary btn-sm" data-book-class="Post-Work Back & Joint Relief">
+                Book Trial Slot
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== DISCIPLINE 4: TURF & CRICKET AGILITY ==================== -->
+        <!-- Class 7: Velocity 30 -->
         <div class="class-card class-card-item" data-category="speed">
           <div class="class-image-holder">
             <div class="class-intensity">⚡ EXTREME AGILITY</div>
@@ -278,14 +428,62 @@
                 <div class="spec-key">Est. Burn</div>
               </div>
               <div>
-                <div class="spec-val">14 Max</div>
+                <div class="spec-val">12 Max</div>
                 <div class="spec-key">Capacity</div>
               </div>
             </div>
 
-            <button class="btn btn-primary" data-book-class="Velocity 30" style="width: 100%;">
-              Book Trial Slot (Free)
-            </button>
+            <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 0.5rem; margin-top: auto; padding-top: 1rem;">
+              <button class="btn btn-secondary btn-sm" onclick="window.openClassDetail('velocity-30')">
+                Explore More
+              </button>
+              <button class="btn btn-primary btn-sm" data-book-class="Velocity 30">
+                Book Trial Slot
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Class 8: Pace Bowler & Batsman Stamina -->
+        <div class="class-card class-card-item" data-category="speed">
+          <div class="class-image-holder">
+            <div class="class-intensity">🏏 MATCH CONDITIONING</div>
+            <img src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=600&auto=format&fit=crop&q=80" alt="Pace Bowler & Batsman Stamina">
+          </div>
+          <div class="class-body">
+            <span class="badge badge-crimson class-seat-tag">🏏 Shirdi League Special</span>
+            <h3 class="class-title">Pace Bowler & Batsman Stamina</h3>
+            <div class="class-coach">
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=60&auto=format&fit=crop&q=80" alt="Coach Anjali">
+              <span>Lead Coach: Anjali Deshmukh (Athletic Conditioning)</span>
+            </div>
+            <p class="class-desc">
+              45-minute turf conditioning specifically designed for cricket bowlers and batsmen: repeat run-up sprint intervals, rotational medicine ball power, and shoulder stability.
+            </p>
+            
+            <div class="class-specs">
+              <div>
+                <div class="spec-val text-crimson">45 Min</div>
+                <div class="spec-key">Duration</div>
+              </div>
+              <div>
+                <div class="spec-val text-gold">700 kcal</div>
+                <div class="spec-key">Est. Burn</div>
+              </div>
+              <div>
+                <div class="spec-val">10 Max</div>
+                <div class="spec-key">Capacity</div>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 0.5rem; margin-top: auto; padding-top: 1rem;">
+              <button class="btn btn-secondary btn-sm" onclick="window.openClassDetail('bowler-batsman-stamina')">
+                Explore More
+              </button>
+              <button class="btn btn-primary btn-sm" data-book-class="Pace Bowler & Batsman Stamina">
+                Book Trial Slot
+              </button>
+            </div>
           </div>
         </div>
 
@@ -334,12 +532,12 @@
               <td><button class="btn btn-secondary btn-sm" data-book-class="Velocity 30">Book Slot</button></td>
             </tr>
             <tr>
-              <td><strong style="color: var(--text-primary);">12:00 PM</strong></td>
-              <td><span style="font-weight: 700; color: var(--text-primary);">Iron & Alloy</span> (Barbell Power)</td>
+              <td><strong style="color: var(--text-primary);">09:00 AM</strong></td>
+              <td><span style="font-weight: 700; color: var(--text-primary);">5x5 Strength Foundation</span> (Barbell Power)</td>
               <td><span class="badge badge-gold">Heavy</span></td>
               <td>Rohit Shinde</td>
               <td><span style="color: var(--accent-green);">5 Spots Left</span></td>
-              <td><button class="btn btn-secondary btn-sm" data-book-class="Iron & Alloy">Book Slot</button></td>
+              <td><button class="btn btn-secondary btn-sm" data-book-class="5x5 Strength Foundation">Book Slot</button></td>
             </tr>
             <tr>
               <td><strong style="color: var(--text-primary);">05:30 PM</strong></td>
@@ -350,12 +548,12 @@
               <td><button class="btn btn-primary btn-sm btn-glow" data-book-class="Burn & Build">Book Slot</button></td>
             </tr>
             <tr>
-              <td><strong style="color: var(--text-primary);">07:00 PM</strong></td>
-              <td><span style="font-weight: 700; color: var(--text-primary);">Reset & Rebuild</span> (Mobility + Steam)</td>
+              <td><strong style="color: var(--text-primary);">08:00 PM</strong></td>
+              <td><span style="font-weight: 700; color: var(--text-primary);">Post-Work Back & Joint Relief</span> (Mobility + Steam)</td>
               <td><span class="badge badge-cyan">Restorative</span></td>
               <td>Dr. Alok Kulkarni</td>
               <td><span style="color: var(--accent-green);">6 Spots Left</span></td>
-              <td><button class="btn btn-secondary btn-sm" data-book-class="Reset & Rebuild">Book Slot</button></td>
+              <td><button class="btn btn-secondary btn-sm" data-book-class="Post-Work Back & Joint Relief">Book Slot</button></td>
             </tr>
           </tbody>
         </table>
@@ -501,6 +699,16 @@
 
   <!-- ==================== MODALS ==================== -->
 
+  <!-- ==================== SESSION DETAILS PREVIEW MODAL (Requirement 4) ==================== -->
+  <div class="modal-backdrop" id="sessionDetailModal">
+    <div class="modal-box" style="max-width: 620px;">
+      <button class="modal-close-icon" aria-label="Close modal">✕</button>
+      <div id="sessionDetailContent">
+        <!-- Rendered dynamically by window.pzModalMgr.openClassExplore -->
+      </div>
+    </div>
+  </div>
+
   <!-- TRIAL CLASS BOOKING MODAL -->
   <div class="modal-backdrop" id="trialBookingModal">
     <div class="modal-box">
@@ -513,10 +721,14 @@
         <div class="form-group">
           <label class="form-label" for="trialClassSelect">Select Discipline</label>
           <select id="trialClassSelect" class="form-control">
-            <option value="Burn & Build">Burn & Build (Metabolic HIIT & Hypertrophy)</option>
-            <option value="Iron & Alloy">Iron & Alloy (Barbell Powerlifting & Strength)</option>
-            <option value="Reset & Rebuild">Reset & Rebuild (Mobility & Steam Recovery)</option>
-            <option value="Velocity 30">Velocity 30 (Turf Sprint & Cricket Agility)</option>
+            <option value="Burn & Build">Burn & Build (50m Conditioning)</option>
+            <option value="Morning Metabolic Rush">Morning Metabolic Rush (35m Express)</option>
+            <option value="Iron & Alloy">Iron & Alloy (Heavy Compounds)</option>
+            <option value="5x5 Strength Foundation">5x5 Strength Foundation (Beginner-Friendly)</option>
+            <option value="Reset & Rebuild">Reset & Rebuild (Myofascial + Steam)</option>
+            <option value="Post-Work Back & Joint Relief">Post-Work Back & Joint Relief (40m Desk Recovery)</option>
+            <option value="Velocity 30">Velocity 30 (Speed & Jumps)</option>
+            <option value="Pace Bowler & Batsman Stamina">Pace Bowler & Batsman Stamina (45m Turf Conditioning)</option>
           </select>
         </div>
 
@@ -535,9 +747,9 @@
             <select id="trialTimeSlot" class="form-control">
               <option value="06:00 AM (Morning)">06:00 AM (Morning)</option>
               <option value="07:30 AM (Express)">07:30 AM (Express)</option>
-              <option value="12:00 PM (Lunch)">12:00 PM (Lunch)</option>
+              <option value="09:00 AM (Morning)">09:00 AM (Morning)</option>
               <option value="05:30 PM (Evening)">05:30 PM (Evening)</option>
-              <option value="07:00 PM (Night)">07:00 PM (Night)</option>
+              <option value="08:00 PM (Night)">08:00 PM (Night)</option>
             </select>
           </div>
         </div>
@@ -554,7 +766,7 @@
           </div>
           <div class="form-group">
             <label class="form-label" for="trialPhone">WhatsApp Mobile</label>
-            <input type="tel" id="trialPhone" class="form-control" placeholder="+91 98765 43210">
+            <input type="tel" id="trialPhone" class="form-control" placeholder="+91 10-digit mobile">
           </div>
         </div>
 
@@ -587,7 +799,7 @@
       <div class="cart-breakdown" id="cartBreakdown"></div>
 
       <button class="btn btn-primary" id="checkoutDrawerBtn" style="width: 100%;">
-        Proceed to Checkout (COD Available)
+        Proceed to Checkout
       </button>
     </div>
   </div>
@@ -610,7 +822,7 @@
           <div class="form-row">
             <div class="form-group">
               <label class="form-label" for="checkoutPhone">WhatsApp Mobile (10 Digits) *</label>
-              <input type="tel" id="checkoutPhone" class="form-control" placeholder="e.g. 9876543210" required pattern="[6-9][0-9]{9}" maxlength="10">
+              <input type="tel" id="checkoutPhone" class="form-control" placeholder="10-digit mobile number" required pattern="[6-9][0-9]{9}" maxlength="10">
             </div>
             <div class="form-group">
               <label class="form-label" for="checkoutCity">City / Town *</label>
@@ -627,20 +839,8 @@
               <input type="text" id="checkoutPincode" class="form-control" placeholder="423109" required pattern="[0-9]{6}" maxlength="6">
             </div>
           </div>
-          <div class="form-group">
-            <label class="form-label">Payment Mode</label>
-            <div class="payment-radio-group">
-              <label class="payment-radio-option selected">
-                <input type="radio" name="paymentMethod" value="cod" checked>
-                <div>
-                  <strong style="color: var(--text-primary);">💵 Cash on Delivery (COD) / Pay at Shirdi Store</strong>
-                  <div style="font-size: 0.75rem; color: var(--text-muted);">Pay when your sports gear arrives at your doorstep</div>
-                </div>
-              </label>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary btn-glow" style="width: 100%;">
-            Place Order & Confirm Delivery
+          <button type="submit" class="btn btn-primary btn-glow" style="width: 100%; margin-top: 0.5rem;">
+            Place Order
           </button>
         </form>
       </div>
@@ -679,7 +879,7 @@
         <form id="authLoginForm">
           <div class="form-group">
             <label class="form-label" for="loginIdentifier">Email Address or 10-Digit Mobile *</label>
-            <input type="text" id="loginIdentifier" class="form-control" placeholder="e.g. rahul@example.com or 9876543210" required autocomplete="username">
+            <input type="text" id="loginIdentifier" class="form-control" placeholder="e.g. rahul@example.com or mobile number" required autocomplete="username">
           </div>
 
           <div class="form-group">
@@ -710,7 +910,7 @@
 
           <div class="form-group">
             <label class="form-label" for="regMobile">10-Digit Indian Mobile Number *</label>
-            <input type="tel" id="regMobile" class="form-control" placeholder="e.g. 9860123456" required pattern="[6-9][0-9]{9}" maxlength="10" title="Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9." autocomplete="tel">
+            <input type="tel" id="regMobile" class="form-control" placeholder="10-digit mobile number" required pattern="[6-9][0-9]{9}" maxlength="10" title="Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9." autocomplete="tel">
             <div id="regMobileHelper" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Must be 10 digits starting with 6, 7, 8, or 9</div>
           </div>
 
@@ -745,6 +945,12 @@
               <input type="password" id="regPassword" class="form-control" placeholder="Create a secure password" required minlength="6" autocomplete="new-password">
               <button type="button" class="password-reveal-btn" onclick="window.togglePasswordVisibility('regPassword', this)" aria-label="Toggle password visibility">👁️‍🗨️</button>
             </div>
+          </div>
+
+          <div class="form-group" id="regOtpWrap" style="display: none;">
+            <label class="form-label" for="regOtpInput">Email Verification Code *</label>
+            <input type="text" id="regOtpInput" name="otp" class="form-control" placeholder="Enter verification code" maxlength="8" autocomplete="one-time-code" style="letter-spacing: 0.25rem; font-size: 1.15rem; font-weight: 700; text-align: center;">
+            <div id="regOtpHelper" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Enter the 6 to 8-digit verification code sent to your email.</div>
           </div>
 
           <button type="submit" class="btn btn-primary btn-glow" style="width: 100%; margin-top: 0.5rem;" id="regSubmitBtn">

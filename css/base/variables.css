@@ -37,6 +37,7 @@
   --text-muted: #64748b;
   --text-inverse: #0b0d11;
 
+  --border-color: rgba(255, 255, 255, 0.08);
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-medium: rgba(255, 255, 255, 0.16);
   --border-glow: rgba(255, 59, 48, 0.4);
@@ -81,6 +82,7 @@
   --text-muted: #64748b;
   --text-inverse: #ffffff;
 
+  --border-color: rgba(0, 0, 0, 0.08);
   --border-subtle: rgba(0, 0, 0, 0.08);
   --border-medium: rgba(0, 0, 0, 0.14);
   --border-glow: rgba(220, 38, 38, 0.35);

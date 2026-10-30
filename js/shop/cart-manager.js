@@ -15,6 +15,41 @@ class PowerZoneCart {
   init() {
     this.updateBadges();
     this.bindEvents();
+    this.syncPromoBanner();
+  }
+
+  getCouponUses(code) {
+    try {
+      const uses = JSON.parse(localStorage.getItem('pz_coupon_uses') || '{}');
+      return uses[(code || '').toUpperCase()] || 0;
+    } catch (e) {
+      return 0;
+    }
+  }
+
+  recordCouponUse(code) {
+    try {
+      const uses = JSON.parse(localStorage.getItem('pz_coupon_uses') || '{}');
+      const normalized = (code || '').toUpperCase();
+      uses[normalized] = (uses[normalized] || 0) + 1;
+      localStorage.setItem('pz_coupon_uses', JSON.stringify(uses));
+      this.syncPromoBanner();
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  syncPromoBanner() {
+    const uses = this.getCouponUses('POWERZONE20');
+    if (uses >= 2) {
+      const banner = document.getElementById('promos');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+      document.querySelectorAll('.store-promo-banner, [data-promo-banner]').forEach(el => {
+        el.style.display = 'none';
+      });
+    }
   }
 
   save() {
@@ -94,7 +129,22 @@ class PowerZoneCart {
 
   applyCoupon(code) {
     const normalized = code.trim().toUpperCase();
+    if (normalized === '') {
+      this.discountPercent = 0;
+      this.appliedCoupon = null;
+      this.renderDrawer();
+      return false;
+    }
+
     if (normalized === 'POWERZONE20' || normalized === 'FUSION20' || normalized === 'SHIRDI20') {
+      if (normalized === 'POWERZONE20' && this.getCouponUses('POWERZONE20') >= 2) {
+        if (window.showToast) {
+          window.showToast('Coupon Expired', 'The POWERZONE20 code has reached its 2-use limit on this device.', 'crimson');
+        }
+        this.syncPromoBanner();
+        return false;
+      }
+
       this.discountPercent = 0.20;
       this.appliedCoupon = normalized;
       this.renderDrawer();
@@ -102,14 +152,9 @@ class PowerZoneCart {
         window.showToast('Coupon Applied!', '20% OFF applied to your order subtotal.', 'success');
       }
       return true;
-    } else if (normalized === '') {
-      this.discountPercent = 0;
-      this.appliedCoupon = null;
-      this.renderDrawer();
-      return false;
     } else {
       if (window.showToast) {
-        window.showToast('Invalid Coupon', 'Code not recognized. Try POWERZONE20!', 'crimson');
+        window.showToast('Invalid Coupon', 'Code not recognized.', 'crimson');
       }
       return false;
     }
