@@ -433,10 +433,10 @@ class PowerZoneModalManager {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      const className = document.getElementById('trialClassSelect').value;
-      const trainer = document.getElementById('trialTrainerSelect').value;
-      const timeSlot = document.getElementById('trialTimeSlot').value;
-      const clientName = document.getElementById('trialName').value.trim();
+      const className = document.getElementById('trialClassSelect')?.value || 'General Fitness';
+      const trainer = document.getElementById('trialTrainerSelect')?.value || 'Head Coach';
+      const timeSlot = document.getElementById('trialTimeSlot')?.value || '09:00 AM (Morning)';
+      const clientName = document.getElementById('trialName')?.value.trim() || '';
       const email = document.getElementById('trialEmail')?.value.trim() || '';
       const phone = document.getElementById('trialPhone')?.value.trim() || '';
 
@@ -445,10 +445,14 @@ class PowerZoneModalManager {
         return;
       }
 
-      // Check existing booked slots in localStorage before reserving (Requirement 6)
-      const existingBookings = JSON.parse(localStorage.getItem('powerzone_class_bookings') || '[]');
-      const hasSlotConflict = existingBookings.some(b => {
-        const slotMatch = (b.timeSlot === timeSlot) || (b.timeSlot && timeSlot && b.timeSlot.slice(0, 5) === timeSlot.slice(0, 5));
+      // Check slot conflict against saved bookings
+      const userBookings = JSON.parse(localStorage.getItem('pz_user_bookings') || '[]');
+      const legacyBookings = JSON.parse(localStorage.getItem('powerzone_class_bookings') || '[]');
+      const allBookings = [...userBookings, ...legacyBookings];
+
+      const hasSlotConflict = allBookings.some(b => {
+        const bookedSlot = b.slot || b.timeSlot || '';
+        const slotMatch = (bookedSlot === timeSlot) || (bookedSlot.slice(0, 5) === timeSlot.slice(0, 5));
         if (!slotMatch) return false;
         if (email && b.email) return b.email.toLowerCase() === email.toLowerCase();
         if (phone && b.phone) return b.phone.replace(/\D/g, '') === phone.replace(/\D/g, '');
@@ -463,7 +467,7 @@ class PowerZoneModalManager {
       }
 
       // Check if prior booking exists for nominal fee of ₹199 (Requirement 4)
-      const hasPriorBooking = existingBookings.some(b =>
+      const hasPriorBooking = allBookings.some(b =>
         (email && b.email && b.email.toLowerCase() === email.toLowerCase()) ||
         (phone && b.phone && b.phone.replace(/\D/g, '') === phone.replace(/\D/g, ''))
       );
@@ -475,26 +479,43 @@ class PowerZoneModalManager {
           window.triggerUPIPayment(199, `PowerZone Class Slot (${className} - ${timeSlot})`);
         }
         if (window.showToast) {
-          window.showToast('Nominal Slot Fee', 'A nominal slot fee of ₹199 applies to additional class reservations. Redirecting to UPI payment...', 'info');
+          window.showToast('Nominal Slot Fee of Rs.199 applied', 'A nominal slot fee of ₹199 applies to additional class reservations. Slot Confirmed', 'info');
         }
       }
 
-      // Record booking to localStorage
-      const trialId = 'PZ-TRL-' + Math.floor(10000 + Math.random() * 90000);
+      // Construct the booking record object
       const bookingRecord = {
-        id: trialId,
+        id: 'PZ-BOOK-' + Math.floor(10000 + Math.random() * 90000),
+        className: document.getElementById('trialClassSelect')?.value || 'General Fitness',
+        trainer: document.getElementById('trialTrainerSelect')?.value || 'Head Coach',
+        timeSlot: document.getElementById('trialTimeSlot')?.value || '09:00 AM (Morning)',
+        slot: document.getElementById('trialTimeSlot')?.value || '09:00 AM (Morning)',
+        sessionTitle: className,
+        coach: trainer,
+        clientName: clientName,
         name: clientName,
         email: email,
         phone: phone,
-        className: className,
-        trainer: trainer,
-        timeSlot: timeSlot,
         fee: slotFee,
         status: 'Confirmed',
-        date: new Date().toISOString().split('T')[0]
+        date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
       };
-      existingBookings.push(bookingRecord);
-      localStorage.setItem('powerzone_class_bookings', JSON.stringify(existingBookings));
+
+      // Store this record directly into localStorage under 'pz_user_bookings'
+      userBookings.unshift(bookingRecord);
+      localStorage.setItem('pz_user_bookings', JSON.stringify(userBookings));
+      localStorage.setItem('pz_free_trial_claimed', 'true');
+
+      // Maintain legacy storage for backward compatibility
+      legacyBookings.push(bookingRecord);
+      localStorage.setItem('powerzone_class_bookings', JSON.stringify(legacyBookings));
+
+      // Trigger re-render if helper is present
+      if (typeof window.renderUserBookedSlots === 'function') {
+        window.renderUserBookedSlots();
+      }
+
+      const trialId = bookingRecord.id;
 
       // Log into PowerZone Supabase Persistent Cloud DB (Leads Table)
       if (window.PowerZoneDB && typeof window.PowerZoneDB.createLead === 'function') {

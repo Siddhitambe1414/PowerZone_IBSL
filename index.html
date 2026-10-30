@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="css/components/buttons.css">
   <link rel="stylesheet" href="css/components/modals.css">
   <link rel="stylesheet" href="css/components/toast.css">
+  <link rel="stylesheet" href="css/components/pattern-waves.css">
   <!-- Page specific (Home) -->
   <link rel="stylesheet" href="css/pages/home/hero.css">
   <link rel="stylesheet" href="css/pages/home/bmi.css">
@@ -122,6 +123,7 @@
 
   <!-- ==================== HERO SECTION (2-COLUMN SPLIT GRID) ==================== -->
   <section class="hero-section" id="hero">
+    <div id="hero-pattern-waves" class="pattern-waves-container"></div>
     <canvas id="ember-canvas"></canvas>
 
     <div class="container hero-split-grid">
@@ -1154,8 +1156,9 @@
   <script src="js/core/theme.js"></script>
   <script src="js/core/auth.js"></script>
 
-  <!-- Visual Particles FX -->
+  <!-- Visual Particles & WebGL FX -->
   <script src="js/particles.js"></script>
+  <script type="module" src="js/components/pattern-waves.js"></script>
 
   <!-- Shop & Cart Dependencies for Quick Purchase -->
   <script src="js/shop/products-data.js"></script>

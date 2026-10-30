@@ -632,6 +632,27 @@ class PowerZoneAuthManager {
     const phone = user.mobile ? (user.mobile.startsWith('+91') ? user.mobile : '+91 ' + user.mobile) : '+91 98765 43210';
     const email = user.email || 'reva@powerzone.com';
 
+    // Retrieve user's booked session slots from 'pz_user_bookings'
+    let userBookings = [];
+    try {
+      const storedBookings = localStorage.getItem('pz_user_bookings');
+      if (storedBookings) {
+        userBookings = JSON.parse(storedBookings);
+      } else {
+        const legacyBookings = localStorage.getItem('powerzone_class_bookings');
+        if (legacyBookings) {
+          userBookings = JSON.parse(legacyBookings);
+        }
+
+      }
+    } catch (e) {
+      userBookings = [];
+    }
+
+    if (!Array.isArray(userBookings)) {
+      userBookings = [];
+    }
+
     content.innerHTML = `
       <div class="pz-profile-modal">
         <!-- User Profile Header -->
@@ -647,6 +668,77 @@ class PowerZoneAuthManager {
               <span class="pz-contact-sep">•</span>
               <span class="pz-contact-email">${email}</span>
             </div>
+          </div>
+        </div>
+
+        <!-- Dedicated My Booked Session Slots Section -->
+        <div class="pz-orders-section pz-bookings-section">
+          <div class="pz-orders-header">
+            <span class="pz-section-label">MY BOOKED SESSION SLOTS</span>
+            <span class="pz-item-counter">${userBookings.length} ${userBookings.length === 1 ? 'SESSION' : 'SESSIONS'}</span>
+          </div>
+
+          <div class="pz-bookings-list">
+            ${userBookings.length === 0 ? `
+              <div class="pz-order-card" style="text-align: center; padding: 1.5rem 1rem;">
+                <p style="margin: 0 0 0.4rem 0; font-size: 0.95rem; font-weight: 600; color: var(--text-primary);">No Session Slots Booked Yet</p>
+                <p style="margin: 0 0 0.85rem 0; font-size: 0.82rem; color: var(--text-muted);">Reserve a trial or training session to lock in your preferred discipline and coach.</p>
+                <a href="classes.html#schedule" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 0.35rem; text-decoration: none; margin: 0 auto;" onclick="window.pzAuth && window.pzAuth.closeUserOrdersModal();">
+                  Explore & Book Slots →
+                </a>
+              </div>
+            ` : userBookings.map(b => {
+              const disciplineName = b.sessionTitle || b.className || 'Training Discipline';
+              const coachName = b.coach || b.trainer || 'Lead Instructor';
+              const rawSlot = b.slot || b.timeSlot || '06:00 AM (Morning)';
+              const formattedSlot = rawSlot.toLowerCase().startsWith('slot:') ? rawSlot : `Slot: ${rawSlot}`;
+              const bookingDate = b.date || 'Confirmed Reservation';
+              const status = b.status || 'Confirmed';
+              const bookingId = b.id || 'PZ-TRL-CONFIRMED';
+
+              return `
+                <div class="pz-order-card pz-booking-slot-card">
+                  <div class="pz-order-card-header">
+                    <div class="pz-order-meta">
+                      <span class="pz-order-id" style="color: var(--secondary); font-size: 0.9rem;">#${bookingId}</span>
+                      <span class="pz-order-date">${bookingDate}</span>
+                    </div>
+                    <span class="pz-status-pill">
+                      <span class="pz-status-dot"></span>
+                      ${status}
+                    </span>
+                  </div>
+                  
+                  <div class="pz-order-card-body" style="display: flex; flex-direction: column; gap: 0.45rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; flex-wrap: wrap;">
+                      <div>
+                        <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.25rem 0; font-family: var(--font-display, sans-serif);">
+                          ${disciplineName}
+                        </h4>
+                        <p style="font-size: 0.84rem; color: var(--text-secondary); margin: 0; display: flex; align-items: center; gap: 0.35rem;">
+                          <span style="color: var(--primary); font-weight: 600;">Coach:</span>
+                          <span style="font-weight: 600; color: var(--text-primary);">${coachName}</span>
+                        </p>
+                      </div>
+                      
+                      <!-- Formatted Time Slot Badge -->
+                      <span class="pz-slot-badge">
+                        ${formattedSlot}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="pz-order-card-footer" style="padding-top: 0.65rem; margin-top: 0.2rem;">
+                    <span style="font-size: 0.78rem; color: var(--text-muted); display: inline-flex; align-items: center; gap: 0.35rem;">
+                      📍 PowerZone Shirdi Arena • Entry Verified
+                    </span>
+                    <span style="font-size: 0.76rem; color: var(--accent-green); font-weight: 700; text-transform: uppercase;">
+                      ✓ Confirmed Access
+                    </span>
+                  </div>
+                </div>
+              `;
+            }).join('')}
           </div>
         </div>
 
@@ -856,3 +948,62 @@ window.togglePasswordVisibility = function (inputId, btnEl) {
 
 window.PowerZoneAuth = new PowerZoneAuthManager();
 window.pzAuth = window.PowerZoneAuth;
+
+window.renderUserBookedSlots = function () {
+  // If the user orders modal is currently active, re-render it directly
+  const modal = document.getElementById('userOrdersModal');
+  if (modal && modal.classList.contains('active') && window.pzAuth && typeof window.pzAuth.openUserOrdersModal === 'function') {
+    window.pzAuth.openUserOrdersModal();
+    return;
+  }
+
+  const container = document.getElementById('userBookedSlotsContainer') ||
+    document.getElementById('userOrdersModalContent') ||
+    document.querySelector('.orders-modal-body') ||
+    document.querySelector('#userOrdersModal .modal-body');
+  if (!container) return;
+
+  // Retrieve user bookings from localStorage
+  const userBookings = JSON.parse(localStorage.getItem('pz_user_bookings') || '[]');
+
+  const existingSection = document.getElementById('pzMyBookedSlotsSection');
+  if (existingSection) existingSection.remove();
+
+  const sectionDiv = document.createElement('div');
+  sectionDiv.id = 'pzMyBookedSlotsSection';
+  sectionDiv.style.marginBottom = '20px';
+  sectionDiv.style.paddingBottom = '15px';
+  sectionDiv.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
+
+  let slotsHTML = `
+    <h4 style="margin: 0 0 12px 0; color: var(--primary, #ef4444); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px;">
+      <span>📅</span> My Booked Training Slots
+    </h4>
+  `;
+
+  if (userBookings.length === 0) {
+    slotsHTML += `
+      <div style="background: rgba(255, 255, 255, 0.03); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 8px; padding: 14px; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+        No session slots booked yet. Book a session to view your reserved timing here.
+      </div>
+    `;
+  } else {
+    slotsHTML += userBookings.map(item => `
+      <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-left: 4px solid var(--primary, #ef4444); border-radius: 6px; padding: 12px 14px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <div style="font-weight: 700; color: #fff; font-size: 0.95rem;">${item.className || 'Training Session'}</div>
+          <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 2px;">Coach: ${item.trainer || 'Head Coach'} • Booked on ${item.date || 'Recent'}</div>
+        </div>
+        <div style="text-align: right;">
+          <span style="background: #0284c7; color: #fff; font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: 4px; display: inline-block;">
+            ${item.slot || item.timeSlot || '09:00 AM'}
+          </span>
+          <div style="font-size: 0.75rem; color: #22c55e; font-weight: 600; margin-top: 3px;">✓ Confirmed</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  sectionDiv.innerHTML = slotsHTML;
+  container.prepend(sectionDiv);
+};

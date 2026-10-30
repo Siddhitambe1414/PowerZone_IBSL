@@ -719,6 +719,44 @@
   transform: translateX(2px);
 }
 
+/* Booked Session Slots Section & Badges */
+.pz-profile-modal .pz-bookings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.pz-profile-modal .pz-booking-slot-card {
+  position: relative;
+  overflow: hidden;
+  border-left: 4px solid var(--primary);
+}
+
+.pz-profile-modal .pz-slot-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.75rem;
+  border-radius: 9999px;
+  font-family: var(--font-display, 'Outfit', sans-serif);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: rgba(220, 38, 38, 0.12);
+  color: var(--primary);
+  border: 1px solid rgba(220, 38, 38, 0.28);
+  white-space: nowrap;
+}
+
+[data-theme="light"] .pz-profile-modal .pz-slot-badge {
+  background: rgba(220, 38, 38, 0.08);
+  border-color: rgba(220, 38, 38, 0.25);
+  color: #dc2626;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 580px) {
   .pz-profile-modal .pz-profile-header {

@@ -1,0 +1,24 @@
+/* ==========================================================================
+   POWERZONE : PATTERN WAVES (React Bits WebGL Integration)
+   ========================================================================== */
+
+.pattern-waves-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.pattern-waves-container canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
