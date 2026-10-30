@@ -34,7 +34,7 @@
 - 📅 **Smart Slot Reservation Guard**: Real-time slot conflict prevention ensuring athletes cannot double-book the same hour. The initial trial reservation is 100% free; subsequent bookings systematically apply a ₹199 nominal fee and immediately sync to the user's account dashboard under `pz_user_bookings`.
 - 🛍️ **Tournament-Grade Sports Store**: Authentic certified inventory including SG Cricket tournament balls, Olympic liquid grip chalk, stainless gym shakers, competition medals, and powerlifting lever belts with dynamic 2-use promo code discounts (`POWERZONE20`).
 - 🧮 **Precision Athletic Blueprint**: Advanced BMI and caloric intake calculator factoring gender, activity multiplier, and goal profiles (Fat Loss, Powerlifting, Agility) to output daily calorie, hydration, and macronutrient targets.
-- 🌊 **React Bits `<PatternWaves />` WebGL2 Engine**: Silky interactive fluid wave simulation powered by OGL with dynamic cursor wake tracking, ambient light grazing, and edge fading.
+- 🌊 **PatternWaves WebGL2 Engine (100% Vanilla JS)**: Silky interactive fluid wave simulation powered by OGL with dynamic cursor wake tracking, ambient light grazing, and edge fading without React or external bundlers.
 - 📦 **Automated PDF Invoicing & Instant Receipts**: Native vector PDF receipt generation directly in the client browser using jsPDF with verified QR tracking and breakdown stamps.
 - 🛡️ **Executive Intelligence Portal**: Dedicated admin command center featuring real-time KPI telemetry, member enrollment tables, and Supabase cloud sync.
 
@@ -44,9 +44,9 @@
 
 | Page Route | Description | Primary Features |
 | :--- | :--- | :--- |
-| [`index.html`](file:///d:/AntiGravity/POWERZONE/index.html) | **Main Flagship Portal** | `<PatternWaves />` Hero, Live Floor Occupancy Meter, Free VIP Pass Generator, Interactive Workout Quiz, Athletic Blueprint BMI Calculator |
-| [`classes.html`](file:///d:/AntiGravity/POWERZONE/classes.html) | **Training Curriculum & Schedule** | 8 Detailed Programs, Discipline Filter Pills, "Explore More" Syllabus Modals, Schedule Timetable with Instant Slot Reservation |
-| [`shop.html`](file:///d:/AntiGravity/POWERZONE/shop.html) | **Sports Gear & Club Offers** | Full E-Commerce Catalog, View Switcher ("Sports Store" vs "Club Offers"), Slide-Over Shopping Cart, Address & Pincode Validation Checkout |
+| [`index.html`](file:///d:/AntiGravity/POWERZONE/index.html) | **Main Flagship Portal** | Silk Wave Hero, Live Floor Occupancy Meter, Free VIP Pass Generator, Interactive Workout Quiz, Athletic Blueprint BMI Calculator |
+| [`classes.html`](file:///d:/AntiGravity/POWERZONE/classes.html) | **Training Curriculum & Schedule** | Ocean Wave Hero, 8 Detailed Programs, Discipline Filter Pills, "Explore More" Syllabus Modals, Schedule Timetable with Instant Slot Reservation |
+| [`shop.html`](file:///d:/AntiGravity/POWERZONE/shop.html) | **Sports Gear & Club Offers** | Lines Wave Hero, Full E-Commerce Catalog, View Switcher ("Sports Store" vs "Club Offers"), Slide-Over Shopping Cart, Address & Pincode Validation Checkout |
 | [`portal.html`](file:///d:/AntiGravity/POWERZONE/portal.html) | **Admin Command Center** | PIN-Authenticated Admin Terminal, Revenue KPIs, Live Order Lifecycle Management, Member Directory, Cloud Lead Tracking |
 
 ---
@@ -58,10 +58,10 @@ POWERZONE HYBRID ARCHITECTURE
 ├── CLIENT PRESENTATION LAYER
 │   ├── Semantic HTML5 (Mobile-First, SEO-Engineered, Accessible)
 │   ├── Vanilla CSS3 (Custom Design Tokens, HSL Light/Dark Themes, Glassmorphism)
-│   └── Modern ECMAScript (ES6+ Classes, Async/Await, Web Storage API)
+│   └── Modern ECMAScript (ES6+ Classes, Async/Await, Web Storage API, ES Modules)
 ├── GRAPHICS & SHADER PIPELINE
 │   ├── WebGL 2.0 (High-performance GPU rendering)
-│   ├── OGL Shader Engine (React Bits <PatternWaves /> Silk/Swell shader)
+│   ├── OGL Shader Engine (Pure Vanilla JS <PatternWaves> Silk/Ocean/Lines shaders)
 │   └── Canvas 2D Particle Physics (Ember Particle Simulator)
 ├── CLOUD SERVICES & PERSISTENCE
 │   ├── Supabase Cloud (PostgreSQL 15, Row-Level Security, Realtime Subscriptions)
@@ -231,11 +231,6 @@ d:\AntiGravity\POWERZONE\
 ├── classes.html                      # Training curriculum & schedule
 ├── shop.html                         # Sports store & club offers
 ├── portal.html                       # Admin executive intelligence terminal
-│
-├── components/                       # React Bits Component Library
-│   └── PatternWaves/
-│       ├── PatternWaves.jsx          # React Component source
-│       └── PatternWaves.css          # React Component styles
 │
 ├── css/                              # Modular CSS Architecture
 │   ├── base/

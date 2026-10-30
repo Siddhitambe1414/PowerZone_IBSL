@@ -789,10 +789,11 @@ export class PatternWavesVanilla {
   }
 }
 
-// Global auto-initializer for PowerZone
+// Global auto-initializer for PowerZone HTML/CSS/JS architecture
 window.PatternWavesVanilla = PatternWavesVanilla;
 
 document.addEventListener('DOMContentLoaded', () => {
+  // 1. Home Page Hero Waves (Crimson Silk Theme)
   const heroWaves = document.getElementById('hero-pattern-waves');
   if (heroWaves) {
     new PatternWavesVanilla(heroWaves, {
@@ -810,4 +811,56 @@ document.addEventListener('DOMContentLoaded', () => {
       opacity: 0.45
     });
   }
+
+  // 2. Classes & Training Hero Waves (Gold Championship Swell Theme)
+  const classesWaves = document.getElementById('classes-pattern-waves');
+  if (classesWaves) {
+    new PatternWavesVanilla(classesWaves, {
+      preset: 'ocean',
+      color: '#f59e0b',
+      backgroundColor: '#0a0b0e',
+      fade: 'edges',
+      fadeSize: 0.55,
+      interactive: true,
+      cursorSize: 55,
+      cursorStrength: 0.65,
+      speed: 0.25,
+      depth: 0.75,
+      shine: 0.85,
+      opacity: 0.38
+    });
+  }
+
+  // 3. Sports Gear Store Hero Waves (Cyan Precision Line Theme)
+  const shopWaves = document.getElementById('shop-pattern-waves');
+  if (shopWaves) {
+    new PatternWavesVanilla(shopWaves, {
+      preset: 'lines',
+      color: '#06b6d4',
+      backgroundColor: '#0a0b0e',
+      fade: 'edges',
+      fadeSize: 0.55,
+      interactive: true,
+      cursorSize: 55,
+      cursorStrength: 0.6,
+      speed: 0.22,
+      depth: 0.8,
+      shine: 0.8,
+      opacity: 0.32
+    });
+  }
+
+  // 4. Any custom container with [data-pattern-waves] attribute
+  document.querySelectorAll('[data-pattern-waves]').forEach(el => {
+    if (el.id === 'hero-pattern-waves' || el.id === 'classes-pattern-waves' || el.id === 'shop-pattern-waves') return;
+    const preset = el.getAttribute('data-preset') || 'silk';
+    const color = el.getAttribute('data-color') || '#ef4444';
+    new PatternWavesVanilla(el, {
+      preset,
+      color,
+      backgroundColor: '#0a0b0e',
+      fade: 'edges',
+      interactive: true
+    });
+  });
 });
